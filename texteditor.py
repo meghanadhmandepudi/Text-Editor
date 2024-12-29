@@ -32,3 +32,35 @@ def toggle_dark_mode():
         text_area.config(background="black", foreground="white", insertbackground="white")
     else:
         text_area.config(background="white", foreground="black", insertbackground="black")
+# Initialize the main application window
+root = tk.Tk()
+root.title("Simple Text Editor")
+root.geometry("800x600")
+root.iconbitmap('')
+
+# Create a menu bar
+menu_bar = tk.Menu(root)
+root.config(menu=menu_bar)
+
+# File menu
+file_menu = tk.Menu(menu_bar, tearoff=0)
+menu_bar.add_cascade(label="File", menu=file_menu)
+file_menu.add_command(label="New", command=new_file)
+file_menu.add_command(label="Open", command=open_file)
+file_menu.add_command(label="Save", command=save_file)
+file_menu.add_separator()
+file_menu.add_command(label="Exit", command=root.quit)
+menu_bar.add_cascade(label="Dark Mode", command=toggle_dark_mode)
+
+# Create a text area
+text_area = tk.Text(root, wrap=tk.WORD, undo=True, font=("Arial", 14))
+text_area.pack(expand=1, fill=tk.BOTH, padx=5, pady=5)
+
+# Add scrollbars
+scrollbar = tk.Scrollbar(text_area)
+scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+text_area.config(yscrollcommand=scrollbar.set)
+scrollbar.config(command=text_area.yview)
+
+# Start the main loop
+root.mainloop()
